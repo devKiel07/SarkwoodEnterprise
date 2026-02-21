@@ -1,0 +1,6 @@
+# Allow all search engines to crawl the entire site
+User-agent: *
+Allow: /
+
+# Location of your sitemap
+Sitemap: https://sakwood-enterprise.vercel.app/sitemap.xml

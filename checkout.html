@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Checkout | SakwoodEnterprise</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  font-family:Segoe UI,sans-serif;
+  background:url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c') center/cover no-repeat fixed;
+  color:white;
+}
+
+/* NAVBAR */
+.navbar{
+  background:rgba(0,0,0,.55);
+  backdrop-filter:blur(15px);
+  border-radius:40px;
+  margin:10px 20px;
+  padding:8px 22px;
+}
+.brand-logo{height:55px;}
+.brand-text{color:#fff!important;font-weight:700;font-size:1.3rem;margin-left:10px;}
+.navbar .nav-link{color:#fff!important;font-weight:600;transition:.3s;}
+.navbar .nav-link:hover{color:#ffc107!important;transform:translateY(-2px);}
+.cart-link{position:relative!important;font-size:1.4rem;}
+#cart-count{
+  position:absolute;top:-8px;right:-8px;
+  font-size:.7rem;padding:2px 6px;
+  border-radius:50%;background:#dc3545;color:white;
+}
+
+/* CHECKOUT */
+.checkout-box{
+  background:rgba(0,0,0,.65);
+  backdrop-filter:blur(10px);
+  border-radius:18px;
+  padding:30px;
+  box-shadow:0 10px 30px rgba(0,0,0,.4);
+}
+
+#order-summary .item{
+  display:flex;justify-content:space-between;
+  padding:6px 0;border-bottom:1px solid rgba(255,255,255,.2);
+}
+
+/* PAYMENT NOTICE */
+.payment-notice{
+  background:rgba(255,193,7,.15);
+  border:1px solid #ffc107;
+  padding:15px;
+  border-radius:10px;
+  margin-bottom:20px;
+  color:#fff;
+}
+
+/* SUCCESS POPUP */
+#successPopup{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.75);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
+.popup-box{
+  background:#111;
+  padding:40px;
+  border-radius:18px;
+  text-align:center;
+  max-width:400px;
+  width:90%;
+}
+
+/* FOOTER */
+footer{
+  background:rgba(15,15,15,.95);
+  padding-top:60px;
+}
+.footer-title{color:#fff;font-weight:700;margin-bottom:20px;}
+.footer-text{color:#aaa;font-size:.95rem;}
+.footer-links a{
+  display:block;color:#aaa;margin-bottom:8px;
+  text-decoration:none;transition:.3s;
+}
+.footer-links a:hover{color:#ffc107;transform:translateX(5px);}
+.footer-divider{height:1px;background:#222;margin:40px 0 20px;}
+.footer-bottom{text-align:center;color:#777;padding-bottom:20px;font-size:.9rem;}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg fixed-top">
+<div class="container-fluid">
+<a class="navbar-brand d-flex align-items-center" href="index.html">
+<img src="sakwoodLOGO.png" class="brand-logo">
+<span class="brand-text">SakwoodEnt</span>
+</a>
+
+<div class="collapse navbar-collapse">
+<ul class="navbar-nav ms-auto text-center">
+<li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+<li class="nav-item"><a class="nav-link" href="products.html">Products</a></li>
+<li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+<li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+<li class="nav-item"><a class="nav-link" href="faq.html">FAQ</a></li>
+<li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+<a class="nav-link cart-link" href="cart.html">
+<i class="fa-solid fa-cart-shopping"></i>
+<span id="cart-count">0</span>
+</a>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<!-- CHECKOUT -->
+<div class="container" style="margin-top:130px;margin-bottom:80px;">
+<div class="row justify-content-center">
+<div class="col-md-8 checkout-box">
+
+<h3 class="mb-4 text-warning">Checkout</h3>
+
+<form id="checkoutForm">
+
+<div class="row">
+<div class="col-md-6 mb-3">
+<label>Full Name *</label>
+<input type="text" class="form-control" name="name" required>
+</div>
+
+<div class="col-md-6 mb-3">
+<label>Phone Number *</label>
+<input type="tel" class="form-control" name="phone" required>
+</div>
+</div>
+
+<div class="mb-3">
+<label>Email (optional)</label>
+<input type="email" class="form-control" name="email">
+</div>
+
+<div class="mb-3">
+<label>Delivery Address *</label>
+<textarea class="form-control" rows="3" name="address" required></textarea>
+</div>
+
+<hr>
+
+<h5 class="text-warning">Order Summary</h5>
+<div id="order-summary" class="mb-3"></div>
+
+<!-- PAYMENT ON DELIVERY NOTICE -->
+<div class="payment-notice">
+<h5 class="text-warning mb-2"><i class="fa-solid fa-truck"></i> Payment on Delivery</h5>
+<p class="mb-0">You are not required to make any payment now. Payment will be made only when your order is delivered to your location.</p>
+</div>
+
+<button type="submit" id="placeOrderBtn" class="btn btn-warning w-100 btn-lg">
+Place Order
+</button>
+
+</form>
+</div>
+</div>
+</div>
+
+<!-- SUCCESS POPUP -->
+<div id="successPopup">
+<div class="popup-box">
+<i class="fa-solid fa-circle-check" style="font-size:60px;color:#ffc107;"></i>
+<h3 class="mt-3 text-warning">Order Placed Successfully!</h3>
+<p>We will contact you shortly to confirm delivery.</p>
+<button onclick="window.location.href='index.html'" class="btn btn-warning w-100 mt-3">Continue</button>
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+<div class="container">
+<div class="row">
+
+<div class="col-md-3 mb-4">
+<h5 class="footer-title">SakwoodEnterprise</h5>
+<p class="footer-text">Premium wooden doors crafted for durability and security.</p>
+</div>
+
+<div class="col-md-3 mb-4">
+<h5 class="footer-title">Quick Links</h5>
+<div class="footer-links">
+<a href="index.html">Home</a>
+<a href="products.html">Products</a>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+<a href="faq.html">FAQ</a>
+</div>
+</div>
+
+<div class="col-md-3 mb-4">
+<h5 class="footer-title">Contact</h5>
+<p class="footer-text">📞 0243860943 / 0552186664</p>
+<p class="footer-text">📧 sakwoodenterprise@gmail.com</p>
+</div>
+
+<div class="col-md-3 mb-4">
+<h5 class="footer-title">Business Hours</h5>
+<p class="footer-text">Mon - Fri: 8AM - 6PM</p>
+<p class="footer-text">Saturday: 9AM - 4PM</p>
+</div>
+
+</div>
+<div class="footer-divider"></div>
+<div class="footer-bottom">
+© 2026 SakwoodEnterprise. All Rights Reserved.
+</div>
+</div>
+</footer>
+
+<script>
+// CART
+function getCart(){ return JSON.parse(localStorage.getItem("cart"))||[]; }
+function updateCartBadge(){document.getElementById("cart-count").textContent=getCart().reduce((sum,i)=>sum+(i.qty||0),0);}
+function renderOrderSummary(){
+const cart=getCart();
+let html="",total=0;
+cart.forEach(item=>{if(item.qty>0){const itemTotal=item.price*item.qty;total+=itemTotal;html+=`<div class="item"><span>${item.name} (x${item.qty})</span><span>GHS ${itemTotal}</span></div>`;}});
+html+=`<div class="item"><strong>Total</strong><strong>GHS ${total}</strong></div>`;
+document.getElementById("order-summary").innerHTML=html;
+}
+
+// PLACE ORDER
+document.getElementById("checkoutForm").addEventListener("submit",function(e){
+e.preventDefault();
+localStorage.setItem("cart","[]");
+document.getElementById("successPopup").style.display="flex";
+});
+
+// INIT
+document.addEventListener("DOMContentLoaded",function(){updateCartBadge();renderOrderSummary();});
+</script>
+
+</body>
+</html>
