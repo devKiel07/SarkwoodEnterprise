@@ -108,9 +108,7 @@ body {
   box-shadow: 0 5px 15px rgba(255,193,7,0.4);
 }
 
-.search-box {
-  position: relative;
-}
+.search-box { position: relative; }
 
 .search-box input {
   background: rgba(255,255,255,0.95);
@@ -145,33 +143,12 @@ body {
   height: 100%;
 }
 
-.card:hover { 
-  transform: translateY(-8px); 
-  box-shadow: 0 15px 35px rgba(0,0,0,.4); 
-}
+.card:hover { transform: translateY(-8px); box-shadow: 0 15px 35px rgba(0,0,0,.4); }
 
-/* SAME SIZE FOR ALL PRODUCT IMAGES - FULL IMAGE VISIBLE */
-.card img { 
-  width: 350px;
-  height: 300px;
-  max-width: 100%;
-  object-fit: contain;
-  object-position: center;
-  background: rgba(0,0,0,.3);
-  padding: 15px;
-  box-sizing: border-box;
-  display: block;
-  margin: 0 auto;
-}
+.card img { width: 350px; height: 300px; max-width: 100%; object-fit: contain; object-position: center; background: rgba(0,0,0,.3); padding: 15px; display: block; margin: 0 auto; }
 
-.card-body { 
-  display: flex; 
-  flex-direction: column; 
-  flex-grow: 1;
-}
-.card-body button { 
-  margin-top: auto; 
-}
+.card-body { display: flex; flex-direction: column; flex-grow: 1; }
+.card-body button { margin-top: auto; }
 
 /* ================= REVIEWS & FOOTER STYLES ================= */
 .review-card {
@@ -182,19 +159,7 @@ body {
   animation: fadeIn 1s ease-in;
 }
 
-/* SAME SIZE FOR ALL REVIEW IMAGES - FULL IMAGE VISIBLE */
-.review-img {
-  width: 100px;
-  height: 100px;
-  max-width: 100%;
-  border-radius: 50%;
-  border: 3px solid #ffc107;
-  object-fit: contain;
-  object-position: center;
-  margin-bottom: 15px;
-  display: block;
-  background: rgba(255,255,255,0.1);
-}
+.review-img { width: 100px; height: 100px; border-radius: 50%; border: 3px solid #ffc107; object-fit: contain; object-position: center; margin-bottom: 15px; display: block; background: rgba(255,255,255,0.1); }
 
 footer {
   background: rgba(15,15,15,0.95);
@@ -206,15 +171,8 @@ footer {
 .footer-text { color: #aaa; font-size: 0.95rem; }
 .footer-links a { display: block; color: #aaa; margin-bottom: 8px; text-decoration: none; transition: 0.3s; }
 .footer-links a:hover { color: #ffc107; transform: translateX(5px); }
-
-.social-icons a {
-  display: inline-flex; justify-content: center; align-items: center;
-  width: 42px; height: 42px; border-radius: 50%;
-  background: #1f1f1f; color: #fff; margin-right: 10px; transition: 0.3s ease; font-size: 1.2rem;
-}
-
+.social-icons a { display: inline-flex; justify-content: center; align-items: center; width: 42px; height: 42px; border-radius: 50%; background: #1f1f1f; color: #fff; margin-right: 10px; transition: 0.3s ease; font-size: 1.2rem; }
 .social-icons a:hover { background: #ffc107; color: #000; transform: translateY(-5px); }
-
 .footer-divider { height: 1px; background: #222; margin: 40px 0 20px; }
 .footer-bottom { text-align: center; color: #777; padding-bottom: 20px; font-size: 0.9rem; }
 
@@ -226,10 +184,7 @@ footer {
   .cart-link { font-size: 1.6rem; text-shadow: 0 0 8px rgba(255,255,255,0.9); }
   #cart-count { top: -10px; right: -10px; font-size: 0.8rem; min-width: 20px; height: 20px; }
   .filter-tabs .nav-link { margin-bottom: 10px; font-size: 0.9rem; }
-  .card img { 
-    width: 280px;
-    height: 240px;
-  }
+  .card img { width: 280px; height: 240px; }
 }
 </style>
 </head>
@@ -272,15 +227,9 @@ footer {
     <div class="row align-items-center mb-4">
       <div class="col-md-8">
         <ul class="nav nav-pills filter-tabs justify-content-center justify-content-md-start mb-3 mb-md-0" id="filterTabs">
-          <li class="nav-item">
-            <a class="nav-link active" href="#all" data-category="all">All Doors</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#wooden" data-category="wooden">Wooden Doors</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#turkish" data-category="turkish">Turkish Doors</a>
-          </li>
+          <li class="nav-item"><a class="nav-link active" href="#" data-category="all">All Doors</a></li>
+          <li class="nav-item"><a class="nav-link" href="#" data-category="wooden">Wooden Doors</a></li>
+          <li class="nav-item"><a class="nav-link" href="#" data-category="turkish">Turkish Doors</a></li>
         </ul>
       </div>
       <div class="col-md-4">
@@ -368,190 +317,107 @@ footer {
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
 <script>
 // ================= CART FUNCTIONS =================
-function getCart() {
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  cart = cart.map(item => ({ ...item, qty: item.qty && item.qty > 0 ? Number(item.qty) : 0 }));
-  localStorage.setItem("cart", JSON.stringify(cart));
-  return cart;
-}
-
+function getCart() { let cart = JSON.parse(localStorage.getItem("cart")) || []; return cart; }
 function updateCartCount() {
   const cart = getCart();
-  const count = cart.reduce((sum, item) => sum + item.qty, 0);
+  const count = cart.reduce((sum, item) => sum + (item.qty || 0), 0);
   document.getElementById("cart-count").textContent = count;
 }
-
 function addToCart(name, price, image) {
   let cart = getCart();
   const index = cart.findIndex(i => i.name === name);
-  if (index > -1) cart[index].qty += 1;
-  else cart.push({ name, price, image, qty: 1 });
-  localStorage.setItem("cart", JSON.stringify(cart));
+  if(index>-1) cart[index].qty +=1;
+  else cart.push({name,price,image,qty:1});
+  localStorage.setItem("cart",JSON.stringify(cart));
   updateCartCount();
   alert(name + " added to cart!");
 }
 
 // ================= PRODUCTS =================
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded",()=>{
   updateCartCount();
-  
-  const products = [
-    // Wooden Doors
-    { name: "Modern Oak Interior Door", price: 1200, image: "modern oark.png", desc: "Elegant modern oak door perfect for interiors.", category: "wooden" },
-    { name: "Classic Carved Wooden Door", price: 1200, image: "classic carved wooden door.png", desc: "Traditional hand-carved hardwood door.", category: "wooden" },
-    { name: "Flush Bedroom Wooden Door", price: 1200, image: "flush bedroom wooden doors.jpg", desc: "Smooth modern door ideal for bedrooms.", category: "wooden" },
-    { name: "Sliding Barn Wooden Door", price: 1200, image: "sliding barn wooden door.jpg", desc: "Rustic sliding barn-style wooden door.", category: "wooden" },
-    { name: "Premium Mahogany Main Door", price: 3500, image: "premium mahogany main door.jpg", desc: "Luxurious solid mahogany construction with premium finish.", category: "wooden" },
-    { name: "Solid Teak Security Door", price: 1200, image: "solid teak security doors.jpg", desc: "Durable solid teak construction for enhanced security.", category: "wooden" },
-    { name: "Modern Crest Teak Door", price: 1200, image: "modern crest teak door.jpg", desc: "Stylish teak wood door with sleek paneling and geometric detailing.", category: "wooden" },
-    { name: "Imperial Mahogany Double Door", price: 1200, image: "imperial mahogany double door.jpg", desc: "Refined double-leaf mahogany door with classic panels.", category: "wooden" },
-    { name: "Pine Hollow Core Doors", price: 1200, image: "pine hollow doors.jpg", desc: "Lightweight hollow core wooden door ideal for interiors.", category: "wooden" },
+  const products=[
+    {name:"Modern Oak Interior Door", price:1200, image:"modern oark.png", desc:"Elegant modern oak door perfect for interiors.", category:"wooden"},
+    {name:"Classic Carved Wooden Door", price:1200, image:"classic carved wooden door.png", desc:"Traditional hand-carved hardwood door.", category:"wooden"},
+    {name:"Flush Bedroom Wooden Door", price:1200, image:"flush bedroom wooden doors.jpg", desc:"Smooth modern door ideal for bedrooms.", category:"wooden"},
+    {name:"Sliding Barn Wooden Door", price:1200, image:"sliding barn wooden door.jpg", desc:"Rustic sliding barn-style wooden door.", category:"wooden"},
+    {name:"Premium Mahogany Main Door", price:1200, image:"premium mahogany main door.jpg", desc:"Luxurious solid mahogany construction with premium finish.", category:"wooden"},
+    {name:"Solid Teak Security Door", price:1200, image:"solid teak security doors.jpg", desc:"Durable solid teak construction for enhanced security.", category:"wooden"},
+    {name:"Modern Crest Teak Door", price:1200, image:"modern crest teak door.jpg", desc:"Stylish teak wood door with sleek paneling and geometric detailing.", category:"wooden"},
+    {name:"Imperial Mahogany Double Door", price:1200, image:"imperial mahogany double door.jpg", desc:"Refined double-leaf mahogany door with classic panels.", category:"wooden"},
+    {name:"Pine Hollow Core Doors", price:1200, image:"pine hollow doors.jpg", desc:"Lightweight hollow core wooden door ideal for interiors.", category:"wooden"},
 
     // Turkish Doors
-    {
-      name: "Central Metallic Strip Turkish Security Door",
-      price: 2200,
-      image: "Central Metallic Strip Turkish Security Door.jpg",
-      desc: "Modern Turkish steel security door featuring a decorative central metallic strip, reinforced steel frame, multi-point locking system and rockwool insulation for maximum security and sound protection.",
-      category: "turkish"
-    },
-    {
-      name: "Decorative Lattice Turkish Security Door",
-      price: 1500,
-      image: "Decorative Lattice Turkish Security Door.jpeg",
-      desc: "Stylish Turkish steel security door with elegant lattice pattern design, strong steel construction, multi-locking system and weather-resistant exterior finish.",
-      category: "turkish"
-    },
-    {
-      name: "Luxury Geometric Steel Door",
-      price: 4500,
-      image: "luxury geometric steel door.png",
-      desc: "High-end Turkish luxury steel door featuring bold geometric patterns, heavy-duty steel core, advanced multi-point security locks and superior insulation.",
-      category: "turkish"
-    },
-    {
-      name: "Luxury Geometric Steel Door (One & Half)",
-      price: 6000,
-      image: "luxury geometric steel door(one and half).jpeg",
-      desc: "Premium one-and-half Turkish luxury entrance door with modern geometric steel design, reinforced frame and high-security locking system.",
-      category: "turkish"
-    },
-    {
-      name: "Piano Design Turkish Security Door",
-      price: 2200,
-      image: "Piano Design Turkish Security .jpeg",
-      desc: "Modern Turkish security door with sleek vertical piano-style panels, durable steel structure and advanced locking technology for apartment entrances.",
-      category: "turkish"
-    },
-    {
-      name: "Piano Design Turkish Security Door (One & Half)",
-      price: 2700,
-      image: "Piano Design Turkish Security(one and half) .jpeg",
-      desc: "Stylish one-and-half Turkish steel door featuring a piano-line design, strong steel core and multi-point locking for enhanced home security.",
-      category: "turkish"
-    },
-    {
-      name: "Vertical Strip Turkish Security Door",
-      price: 2800,
-      image: "Vertical Strip Turkish Security Door.jpeg",
-      desc: "Contemporary Turkish security door with elegant vertical strip design, reinforced steel body, sound insulation and durable weather-resistant coating.",
-      category: "turkish"
-    },
-    {
-      name: "Turkish Armored Door (Pm-160)",
-      price: 1500,
-      image: "Turkish Armored door (Pm-160).jpeg",
-      desc: "Premium Turkish armored door with luxury finishing, reinforced steel structure, multi-point locks and superior durability for high-security entrances.",
-      category: "turkish"
-    }
+    {name:"Central Metallic Strip Turkish Security Door", price:2200, image:"Central Metallic Strip Turkish Security Door.jpg", desc:"Modern Turkish steel security door featuring a decorative central metallic strip, reinforced steel frame, multi-point locking system and rockwool insulation for maximum security and sound protection.", category:"turkish"},
+    {name:"Decorative Lattice Turkish Security Door", price:1500, image:"Decorative Lattice Turkish Security Door.jpeg", desc:"Stylish Turkish steel security door with elegant lattice pattern design, strong steel construction, multi-locking system and weather-resistant exterior finish.", category:"turkish"},
+    {name:"Luxury Geometric Steel Door", price:4500, image:"luxury geometric steel door.png", desc:"High-end Turkish luxury steel door featuring bold geometric patterns, heavy-duty steel core, advanced multi-point security locks and superior insulation.", category:"turkish"},
+    {name:"Luxury Geometric Steel Door (One & Half)", price:6000, image:"luxury geometric steel door(one and half).jpeg", desc:"Premium one-and-half Turkish luxury entrance door with modern geometric steel design, reinforced frame and high-security locking system.", category:"turkish"},
+    {name:"Piano Design Turkish Security Door", price:2200, image:"Piano Design Turkish Security .jpeg", desc:"Modern Turkish security door with sleek vertical piano-style panels, durable steel structure and advanced locking technology for apartment entrances.", category:"turkish"},
+    {name:"Piano Design Turkish Security Door (One & Half)", price:2700, image:"Piano Design Turkish Security(one and half) .jpeg", desc:"Stylish one-and-half Turkish steel door featuring a piano-line design, strong steel core and multi-point locking for enhanced home security.", category:"turkish"},
+    {name:"Vertical Strip Turkish Security Door", price:2800, image:"Vertical Strip Turkish Security Door.jpeg", desc:"Contemporary Turkish security door with elegant vertical strip design, reinforced steel body, sound insulation and durable weather-resistant coating.", category:"turkish"},
+    {name:"Turkish Armored Door (Pm-160)", price:1500, image:"Turkish Armored door (Pm-160).jpeg", desc:"Premium Turkish armored door with luxury finishing, reinforced steel structure, multi-point locks and superior durability for high-security entrances.", category:"turkish"}
   ];
 
-  let allProducts = products;
-  let currentProducts = [...allProducts];
+  let allProducts=[...products];
+  let currentProducts=[...allProducts];
 
-  function renderProducts(productsToShow) {
-    const container = document.getElementById("products-row");
-    container.innerHTML = "";
-    
-    productsToShow.forEach(p => {
-      const col = document.createElement("div");
-      col.className = "col-lg-4 col-md-6";
-      col.innerHTML = `
-        <div class="card bg-dark bg-opacity-75 text-white h-100">
-          <div style="height: 380px; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,.3); padding: 15px;">
-            <img src="${p.image}" alt="${p.name}" style="width: 350px; height: 300px; max-width: 100%; object-fit: contain; object-position: center;">
-          </div>
-          <div class="card-body text-center">
-            <h5 class="card-title">${p.name}</h5>
-            <p class="card-text">${p.desc}</p>
-            <p class="fw-bold text-warning fs-4">GHS ${p.price.toLocaleString()}</p>
-            <button class="btn btn-warning w-100 py-2" onclick="addToCart('${p.name}',${p.price},'${p.image}')">
-              <i class="fa-solid fa-cart-shopping me-2"></i>Add to Cart
-            </button>
-          </div>
+  function renderProducts(productsToShow){
+    const container=document.getElementById("products-row");
+    container.innerHTML="";
+    productsToShow.forEach(p=>{
+      const col=document.createElement("div");
+      col.className="col-lg-4 col-md-6";
+      col.innerHTML=`<div class="card bg-dark bg-opacity-75 text-white h-100">
+        <div style="height:380px; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,.3); padding:15px;">
+          <img src="${p.image}" alt="${p.name}" style="width:350px;height:300px;object-fit:contain;">
         </div>
-      `;
+        <div class="card-body text-center">
+          <h5 class="card-title">${p.name}</h5>
+          <p class="card-text">${p.desc}</p>
+          <p class="fw-bold text-warning fs-4">GHS ${p.price.toLocaleString()}</p>
+          <button class="btn btn-warning w-100 py-2" onclick="addToCart('${p.name}',${p.price},'${p.image}')">
+            <i class="fa-solid fa-cart-shopping me-2"></i>Add to Cart
+          </button>
+        </div>
+      </div>`;
       container.appendChild(col);
     });
   }
 
   // Filter tabs functionality
-  document.querySelectorAll('#filterTabs .nav-link').forEach(tab => {
-    tab.addEventListener('click', function(e) {
+  document.querySelectorAll('#filterTabs .nav-link').forEach(tab=>{
+    tab.addEventListener('click',function(e){
       e.preventDefault();
-      const category = this.getAttribute('data-category');
-      
-      document.querySelectorAll('#filterTabs .nav-link').forEach(t => t.classList.remove('active'));
+      const category=this.getAttribute('data-category');
+      document.querySelectorAll('#filterTabs .nav-link').forEach(t=>t.classList.remove('active'));
       this.classList.add('active');
 
-      if (category === 'all') {
-        currentProducts = [...allProducts];
-        document.getElementById('pageTitle').textContent = 'Our Premium Doors';
-      } else if (category === 'wooden') {
-        currentProducts = allProducts.filter(p => p.category === 'wooden');
-        document.getElementById('pageTitle').textContent = 'Premium Wooden Doors';
-      } else if (category === 'turkish') {
-        currentProducts = allProducts.filter(p => p.category === 'turkish');
-        document.getElementById('pageTitle').textContent = 'Premium Turkish Doors';
-      }
-      
+      if(category==='all'){ currentProducts=[...allProducts]; document.getElementById('pageTitle').textContent='Our Premium Doors'; }
+      else if(category==='wooden'){ currentProducts=allProducts.filter(p=>p.category==='wooden'); document.getElementById('pageTitle').textContent='Premium Wooden Doors'; }
+      else if(category==='turkish'){ currentProducts=allProducts.filter(p=>p.category==='turkish'); document.getElementById('pageTitle').textContent='Premium Turkish Doors'; }
+
       renderProducts(currentProducts);
     });
   });
 
   // Search functionality
-  document.getElementById('searchInput').addEventListener('input', function() {
-    const searchTerm = this.value.toLowerCase().trim();
-    const activeTab = document.querySelector('#filterTabs .nav-link.active').getAttribute('data-category');
-    
-    let filtered = allProducts;
-    
-    if (activeTab !== 'all') {
-      filtered = allProducts.filter(p => p.category === activeTab);
-    }
-    
-    if (searchTerm) {
-      filtered = filtered.filter(p => 
-        p.name.toLowerCase().includes(searchTerm) || 
-        p.desc.toLowerCase().includes(searchTerm)
-      );
-    }
-    
-    currentProducts = filtered;
+  document.getElementById('searchInput').addEventListener('input',function(){
+    const searchTerm=this.value.toLowerCase().trim();
+    const activeTab=document.querySelector('#filterTabs .nav-link.active').getAttribute('data-category');
+    let filtered=allProducts;
+    if(activeTab!=='all'){ filtered=allProducts.filter(p=>p.category===activeTab); }
+    if(searchTerm){ filtered=filtered.filter(p=>p.name.toLowerCase().includes(searchTerm) || p.desc.toLowerCase().includes(searchTerm)); }
+    currentProducts=filtered;
     renderProducts(currentProducts);
   });
 
-  // Initial render
   renderProducts(currentProducts);
 });
 
 // Listen for cart changes from other tabs
-window.addEventListener('storage', (e) => {
-  if (e.key === 'cart') updateCartCount();
-});
+window.addEventListener('storage',e=>{ if(e.key==='cart') updateCartCount(); });
 </script>
 </body>
 </html>
